@@ -1,3 +1,4 @@
+<?php include 'header.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,8 +14,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
+            padding-top: 70px; /* Adjusted padding for header height */
+            padding-bottom: 50px; /* Adjusted padding for footer height */
         }
 
         .booking-container {
@@ -36,7 +39,7 @@
         }
 
         .booking-section label {
-            color:#FF4C4C;
+            color: #FF4C4C;
             display: block;
             margin-bottom: 10px;
             font-weight: bold;
@@ -83,7 +86,7 @@
 
         .booking-section button:hover {
             background-color: black;
-            text-decoration-skip:white;
+            text-decoration-skip: white;
         }
 
         .booking-section button:disabled {
@@ -133,8 +136,34 @@
             justify-content: center;
             margin-top: 20px;
         }
-        a{
-            cursor:pointer;
+
+        a {
+            cursor: pointer;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: black;
+            z-index: 1000;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            z-index: 1000;
+        }
+
+        .footer-bottom {
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #fff;
         }
     </style>
 </head>
@@ -172,18 +201,16 @@
                 <label for="passengers">👥Travellers</label>
                 <div class="passenger-controls">
                     <span id="decrement">-</span>
-                    <input type="text" id="passengers" name="passengers" value="4" readonly required >
+                    <input type="text" id="passengers" name="passengers" value="4" readonly required>
                     <span id="increment">+</span>
                 </div>
             </div>
             <div class="booking-section datepicker-container">
                 <label for="arrival">🗓️Start</label>
-                
                 <input type="text" id="arrival" name="start_date" readonly required placeholder="Choose date">
             </div>
             <div class="booking-section datepicker-container">
                 <label for="departure">🗓️Departure</label>
-                
                 <input type="text" id="departure" name="departure_date" readonly required placeholder="Choose date">
             </div>
             <div class="booking-section button-section">

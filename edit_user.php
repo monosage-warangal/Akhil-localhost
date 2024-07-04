@@ -8,13 +8,13 @@ if(isset($_GET['id'])) {
     $userId = $_GET['id'];
     
     // Fetch user details based on ID
-    $sql = "SELECT * FROM users WHERE id = $userId";
+    $sql = "SELECT * FROM users WHERE user_id = $userId";
     $result = $conn->query($sql);
 
     if($result->num_rows == 1) {
         $row = $result->fetch_assoc();
-        $firstName = $row['firstName'];
-        $lastName = $row['lastName'];
+        $firstName = $row['firstname'];
+        $lastName = $row['lastname'];
         $email = $row['email'];
     } else {
         echo "User not found.";

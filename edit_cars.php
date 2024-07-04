@@ -13,7 +13,6 @@ if(isset($_GET['id'])) {
     if($result->num_rows == 1) {
         $row = $result->fetch_assoc();
         $carName = $row['car_name'];
-        $carType = $row['car_type'];
         $pricePerDay = $row['price_per_day'];
         $seatingCapacity = $row['seating_capacity'];
         $acStatus = $row['ac_status'];
@@ -30,7 +29,6 @@ if(isset($_GET['id'])) {
 
 if(isset($_POST['updateCar'])) {
     $carName = $_POST['carName'];
-    $carType = $_POST['carType'];
     $pricePerDay = $_POST['pricePerDay'];
     $seatingCapacity = $_POST['seatingCapacity'];
     $acStatus = $_POST['acStatus'];
@@ -38,7 +36,7 @@ if(isset($_POST['updateCar'])) {
     $carId = $_POST['car_id'];
     
     // Update car details
-    $sql = "UPDATE cars SET car_name='$carName', car_type='$carType', price_per_day='$pricePerDay', seating_capacity='$seatingCapacity', ac_status='$acStatus', image_url='$imageUrl' WHERE car_id=$carId";
+    $sql = "UPDATE cars SET car_name='$carName', price_per_day='$pricePerDay', seating_capacity='$seatingCapacity', ac_status='$acStatus', image_url='$imageUrl' WHERE car_id=$carId";
 
     if ($conn->query($sql) === TRUE) {
         header("Location: manage_cars.php");
@@ -67,8 +65,6 @@ $conn->close();
         <input type="hidden" name="car_id" value="<?php echo $carId; ?>">
         <label for="carName">Car Name:</label>
         <input type="text" id="carName" name="carName" value="<?php echo $carName; ?>"><br><br>
-        <label for="carType">Car Type:</label>
-        <input type="text" id="carType" name="carType" value="<?php echo $carType; ?>"><br><br>
         <label for="pricePerDay">Price Per Day:</label>
         <input type="text" id="pricePerDay" name="pricePerDay" value="<?php echo $pricePerDay; ?>"><br><br>
         <label for="seatingCapacity">Seating Capacity:</label>

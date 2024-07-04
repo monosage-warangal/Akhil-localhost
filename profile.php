@@ -1,84 +1,5 @@
-<style>
-          /* Reset default margin and padding */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-image: url('images/body.png');
-    background-size: cover;
-    height:auto;
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f0f0f0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Ensure the page takes at least the height of the viewport */
-}
-
-.wrapper {
-    margin-top: -50px;
-    flex: 1; /* This ensures the wrapper takes up the remaining vertical space */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 80px;
-}
-
-.profile {
-    background-image: url('images/background1.png');
-    background-size: cover;
-    background-position: center;
-    height:auto;
-    background-color: #fff;
-    width: 600px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.profile h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-.detail {
-    margin-bottom: 10px;
-}
-
-.emoji {
-    font-size: 20px;
-    margin-right: 10px;
-}
-
-strong {
-    font-weight: bold;
-    width: 100px;
-    display: inline-block;
-}
-
-/* Footer styles */
-    footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
-    position: -webkit-sticky;
-    bottom: 0;
-    width: 100%;
-    }
-hr{
-    margin-bottom:18px;
-    margin-top:20px;
-}
-</style>
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+session_start(); // Start or resume a session
 
 include 'connect.php';
 
@@ -105,21 +26,6 @@ if (!$user) {
     die("User not found");
 }
 
-// Fetch booking details
-$sql_booking = "SELECT booking_id, location, passengers, start_date, departure_date FROM bookings WHERE user_email = ?";
-$stmt_booking = $conn->prepare($sql_booking);
-if ($stmt_booking === false) {
-    die("Error preparing statement: " . htmlspecialchars($conn->error));
-}
-
-$stmt_booking->bind_param("s", $email);
-$stmt_booking->execute();
-$result_booking = $stmt_booking->get_result();
-$bookings = $result_booking->fetch_all(MYSQLI_ASSOC);
-
-$stmt_user->close();
-$stmt_booking->close();
-$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -127,57 +33,140 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/1b91071d81.js" crossorigin="anonymous"></script>
     <title>User Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+ background-color: black;
+            height: auto;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .profile {
+background-color: black;
+            background-position: center;
+            height: auto;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .profile h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .detail {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            color:white;
+        }
+
+        .emoji {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        strong {
+            font-weight: bold;
+            width: 150px; /* Adjust width to create space */
+            display: inline-block;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            padding: 8px;
+            width: 100%; /* Full width input */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .link-container {
+            width:20%;
+            left:20%;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .link-container a {
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            width: 48%; /* Ensure buttons are side by side with space between */
+            text-align: center;
+        }
+
+        .edit-profile {
+            background-color: #FF4C4C;
+    
+        }
+
+        .view-bookings {
+            background-color:black;
+        }
+
+        .edit-profile:hover {
+            background-color: black;
+        }
+
+        .view-bookings:hover {
+            background-color: #FF4C4C;
+        }
+
+        hr {
+            margin-bottom: 18px;
+            margin-top: 20px;
+        }
+
+        i {
+            color: #B2ACAC;
+        }
+
+        .car-image {
+            height: 200px;
+            width: 200px;
+        }
+        h2{
+            color:white;
+            text-align:center;
+        }
+    </style>
 </head>
 <body>
     <?php include 'header.php'; ?>
 
-    <div class="wrapper">
-        <div class="profile">
-            <h2>Profile Details</h2>
-            <div class="detail">
-                <span class="emoji">👤</span>
-                <strong>First Name:</strong><?php echo htmlspecialchars($user['firstName']); ?>
-            </div>
-            <div class="detail">
-                <span class="emoji">👤</span>
-                <strong>Last Name:</strong><?php echo htmlspecialchars($user['lastName']); ?>
-            </div>
-            <div class="detail">
-                <span class="emoji">📧</span>
-                <strong>Email:</strong><?php echo htmlspecialchars($user['email']); ?>
-            </div>
-            <a href="edit_profile.php" id="editProfileBtn">Edit Profile</a>
-            <hr>
-            <h2>Booking Details</h2>
-            <?php if (!empty($bookings)): ?>
-                <?php foreach ($bookings as $booking): ?>
-                    <div class="detail">
-                        <span class="emoji">🆔</span>
-                        <strong>Booking Id:</strong><?php echo htmlspecialchars($booking['booking_id']); ?>
-                    </div>
-                    <div class="detail">
-                        <span class="emoji">📍</span>
-                        <strong>Location:</strong><?php echo htmlspecialchars($booking['location']); ?>
-                    </div>
-                    <div class="detail">
-                        <span class="emoji">🗓️</span>
-                        <strong>Start Date:</strong><?php echo htmlspecialchars($booking['start_date']); ?>
-                    </div>
-                    <div class="detail">
-                        <span class="emoji">🗓️</span>
-                        <strong>Departure Date:</strong><?php echo htmlspecialchars($booking['departure_date']); ?>
-                    </div>
-                    <div class="detail">
-                        <span class="emoji">👥</span>
-                        <strong>No.of Passengers:</strong><?php echo htmlspecialchars($booking['passengers']); ?>
-                    </div>
-                    <hr>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p>No bookings found.</p>
-            <?php endif; ?>
+    <div class="profile">
+        <div class="link-container">
+            <a href="edit_profile.php" class="edit-profile">Edit Profile</a>
+            <a href="booking_details.php" class="view-bookings">View Bookings</a>
+        </div>
+        <h2>Profile Details</h2>
+        <div class="detail">
+            <span class="emoji"><i class="fa-solid fa-user"></i></span>
+            <strong>First Name:</strong> <?php echo htmlspecialchars($user['firstName']); ?>
+        </div>
+        <div class="detail">
+            <span class="emoji"><i class="fa-solid fa-user"></i></span>
+            <strong>Last Name:</strong> <?php echo htmlspecialchars($user['lastName']); ?>
+        </div>
+        <div class="detail">
+            <span class="emoji"><i class="fa-solid fa-at"></i></span>
+            <strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?>
         </div>
     </div>
 

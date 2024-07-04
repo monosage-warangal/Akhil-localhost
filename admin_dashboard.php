@@ -18,82 +18,122 @@ $conn->close();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="style.css">
-<?php include 'header.php'; ?>
+    <link rel="stylesheet" href="style.css">
+    <?php include 'header.php'; ?>
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
-    <!-- Include any CSS stylesheets or meta tags here -->
-     <style>
-        /* Reset default margin and padding */
-body, ul {
-    margin: 0;
-    padding: 0;
-}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+           width:auto;
+        }
 
-/* Basic styling for the body */
-body {
-    font-family: Arial, sans-serif;
-    background-color:whitesmoke; /* Light gray background */
-}
+        h1 {
+            text-align: center;
+            color: black;
+        }
 
-/* Main heading style */
-h1 {
-    text-align: center;
-    color: #333; /* Dark gray text color */
-}
-
-/* Styling for the list of links */
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-/* Styling for each link item */
-.link {
-    margin-bottom: 10px;
+        .container1 {
+            width:100%;
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-top: 40px;
+    background-color: transparent;
     padding: 20px;
-    background-image: url("images/body.png");
+    box-shadow: none;
+    border: none;
 }
 
-/* Link styling */
-.link a {
-    display: block;
-    padding: 10px 20px;
-    text-decoration: none;
-    color: #555; /* Medium gray text color */
-    background-color: #fff; /* White background */
-    border: 1px solid #ccc; /* Light gray border */
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    background-image: url("images/1234567.png");
+.card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: calc(33.33% - 20px); /* Adjust width as per your layout */
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-/* Hover effect for links */
-.link a:hover {
-    background-color: #FF4C4C; /* Light gray background on hover */
-}
-
-/* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
-    li a {
-        padding: 8px 16px;
+    .container1 {
+        flex-wrap: wrap;
+    }
+
+    .card {
+        width: calc(50% - 20px); /* Adjust width for smaller screens */
     }
 }
+        .card:hover {
+            transform: scale(1.05);
+            background-color: #f7f7f7;
+        }
 
-        </style>
+        .card a {
+            text-decoration: none;
+            color: #555;
+            display: block;
+            padding: 20px;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .card a:hover {
+            color: #FF4C4C;
+        }
+
+        .card-header {
+            background-color: #007bff; /* Primary color */
+            color: #fff;
+            padding: 20px;
+            font-size: 22px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .card-header.warning {
+            background-color: #ffc107; /* Warning color */
+        }
+
+        .card-header.success {
+            background-color: #28a745; /* Success color */
+        }
+
+        .card-footer {
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .container1 {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome, Admin!</h1><br><br><br>
-    
-    <!-- Example links to manage users, cars, bookings -->
-    <ul>
-        <div class="link">
-        <li><a href="manage_users.php">Manage Users</a></li>
-        <li><a href="manage_cars.php">Manage Cars</a></li>
-        <li><a href="manage_bookings.php">Manage Bookings</a></li>
-</div>
-    </ul>
+    <h1>Welcome, Admin!</h1>
+<br>
+    <div class="container1">
+        <div class="card">
+            <div class="card-header">Manage Users</div>
+            <div class="card-footer"><a href="manage_users.php">View Details</a></div>
+        </div>
 
-    <!-- Add more content as needed -->
+        <div class="card">
+            <div class="card-header warning">Manage Cars</div>
+            <div class="card-footer"><a href="manage_cars.php">View Details</a></div>
+        </div>
+
+        <div class="card">
+            <div class="card-header success">Manage Bookings</div>
+            <div class="card-footer"><a href="manage_bookings.php">View Details</a></div>
+        </div>
+    </div>
 </body>
+
 </html>

@@ -37,10 +37,11 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/1b91071d81.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
     <title>Edit Profile</title>
     <style>
-        /* Reset default margin and padding */
+        
         * {
             margin: 0;
             padding: 0;
@@ -56,12 +57,13 @@ $conn->close();
             background-color: #f0f0f0;
             display: flex;
             flex-direction: column;
-            min-height: 100vh; /* Ensure the page takes at least the height of the viewport */
+            min-height: 100vh;
         }
 
         .wrapper {
+            width: 100%;
             margin-top: -50px;
-            flex: 1; /* This ensures the wrapper takes up the remaining vertical space */
+            flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -69,11 +71,12 @@ $conn->close();
         }
 
         .profile {
-            background-image: url('images/background1.png');
+            /* background-image: url('images/background1.png'); */
             background-size: cover;
             background-position: center;
+            height:auto;
             background-color: #fff;
-            width: 600px;
+            width: 100%;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -87,6 +90,8 @@ $conn->close();
 
         .detail {
             margin-bottom: 10px;
+            display: flex;
+            align-items: center;
         }
 
         .emoji {
@@ -96,44 +101,27 @@ $conn->close();
 
         strong {
             font-weight: bold;
-            width: 100px;
+            width: 150px; /* Adjust width to create space */
             display: inline-block;
         }
 
+        input[type="text"],
+        input[type="password"] {
+            padding: 8px;
+            width: 100%; /* Full width input */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
         /* Button styles */
-        .profile-button-container {
-            display: inline-block;
+        .button-container {
+            display: flex;
             justify-content: space-between;
             margin-top: 20px;
         }
 
-        .update-button {
-            flex: 1;
-            margin-right: 10px; /* Adjust margin for spacing */
-        }
-
-        .update-button button {
-            color: blue;
-            text-decoration: underline;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            width: 100%; /* Ensure button takes full width */
-            margin-left: 215px;
-        }
-
-        .update-button button:hover {
-            color: #FF4C4C;
-        }
-
-        /* Cancel button */
-        .cancel-button {
-            flex: 1;
-            margin-left: 20px; /* Adjust margin for spacing */
-        }
-
+        .update-button button,
         .cancel-button button {
             color: blue;
             text-decoration: underline;
@@ -143,9 +131,9 @@ $conn->close();
             cursor: pointer;
             font-size: 16px;
             width: 100%; /* Ensure button takes full width */
-            margin-left: 200px;
         }
 
+        .update-button button:hover,
         .cancel-button button:hover {
             color: #FF4C4C;
         }
@@ -161,9 +149,13 @@ $conn->close();
             width: 100%;
         }
         hr {
-            margin-bottom:18px;
-            margin-top:20px;
+            margin-bottom: 18px;
+            margin-top: 20px;
         }
+        i{
+            color:#B2ACAC;
+        }
+
     </style>
     <script>
         function confirmCancel() {
@@ -182,22 +174,22 @@ $conn->close();
             <h2>Edit Profile</h2>
             <form action="update_profile.php" method="post">
                 <div class="detail">
-                    <span class="emoji">👤</span>
+                    <span class="emoji"><i class="fa-solid fa-user"></i></span>
                     <strong>First Name:</strong>
                     <input type="text" name="firstName" value="<?php echo htmlspecialchars($user['firstName']); ?>" required>
                 </div>
                 <div class="detail">
-                    <span class="emoji">👤</span>
+                    <span class="emoji"><i class="fa-solid fa-user"></i></span>
                     <strong>Last Name:</strong>
                     <input type="text" name="lastName" value="<?php echo htmlspecialchars($user['lastName']); ?>" required>
                 </div>
                 <div class="detail">
-                    <span class="emoji">🔒</span>
+                    <span class="emoji"><i class="fa-solid fa-lock"></i></span>
                     <strong>New Password:</strong>
                     <input type="password" name="newPassword" required>
                 </div>
                 <div class="detail">
-                    <span class="emoji">🔒</span>
+                    <span class="emoji"><i class="fa-solid fa-lock"></i></span>
                     <strong>Confirm New Password:</strong>
                     <input type="password" name="confirmNewPassword" required>
                 </div>
@@ -207,13 +199,16 @@ $conn->close();
                         <button type="submit">Update</button>
                     </div>
                     <div class="cancel-button">
+                        <button type="submit">Update</button>
                         <button type="button" onclick="confirmCancel()">Cancel</button>
                     </div>
                 </div>
+    </div>
             </form>
         </div>
     </div>
-    
+    <div>
     <?php include 'footer.php'; ?>
+    </div>
 </body>
 </html>
